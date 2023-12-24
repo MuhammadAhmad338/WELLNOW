@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wellnow/Helper/widthHeight.dart';
 import 'package:wellnow/Services/tipsServices.dart';
-
 import '../Models/user.dart';
 
 class TipsPage extends StatefulWidget {

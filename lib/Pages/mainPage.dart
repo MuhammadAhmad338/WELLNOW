@@ -36,7 +36,7 @@ class MainPage extends StatelessWidget {
                 label: "Tips"),
             NavigationDestination(
                 icon: Image.asset(
-                  "assets/images/search.png",
+                  "assets/images/maps-and-flags.png",
                   width: _widthHeight.screenWidth(context, 0.035),
                   height: _widthHeight.screenHeight(context, 0.035),
                 ),

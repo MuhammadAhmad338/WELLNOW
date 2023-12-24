@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
 
                             return ListView.builder(
                               itemCount: messages.length,
-                              reverse: true,
+                              reverse: false,
                               itemBuilder: (context, index) {
                                 return Container(
                                   margin: EdgeInsets.all(8.0),
