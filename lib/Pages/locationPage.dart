@@ -12,7 +12,6 @@ class _LocationPageState extends State<LocationPage> {
   
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     LocationProvider().getNearbyHospitals();
     LocationProvider().getNearbyPharmacies();

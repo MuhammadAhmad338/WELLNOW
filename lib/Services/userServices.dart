@@ -23,13 +23,14 @@ class UserServices {
           Uri.parse('${APIURL}/api/users/login'),
           body: jsonEncode(body),
           headers: {'Content-Type': 'application/json'});
+
       if (response.statusCode == 200) {
        // Decode the response body into a JSON object.
         Map<String, dynamic> json = jsonDecode(response.body);
 
         // Create a User object from the JSON object.
         User user = User.fromJson(json);
-
+      
         LocalStorage().setUsername(user.username);
         LocalStorage().setEmail(user.email);
 

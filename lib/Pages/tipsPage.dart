@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wellnow/Helper/widthHeight.dart';
 import 'package:wellnow/Services/tipsServices.dart';
+import 'package:wellnow/Widgets/healthCard.dart';
 import '../Models/user.dart';
 
 class TipsPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _TipsPageState extends State<TipsPage> {
         SizedBox(height: _widthHeight.screenHeight(context, 0.02)),
         Text("Health Tips",
             style: TextStyle(
-                fontSize: _widthHeight.screenWidth(context, 0.055),
+                fontSize: _widthHeight.screenWidth(context, 0.043),
                 fontWeight: FontWeight.bold)),
         SizedBox(height: _widthHeight.screenHeight(context, 0.02)),
         Expanded(
@@ -33,15 +34,10 @@ class _TipsPageState extends State<TipsPage> {
                   itemCount: snapshot.data!.length,
                   reverse: false,
                   itemBuilder: (context, index) {
-                    return Card(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: _widthHeight.screenWidth(context, 0.035),
-                          vertical: _widthHeight.screenHeight(context, 0.008)),
-                      child: ListTile(
-                        title: Text(snapshot.data![index].title),
-                        subtitle: Text(snapshot.data![index].content),
-                      ),
-                    );
+                    final title = snapshot.data![index].title;
+                    final content = snapshot.data![index].content;
+                    return HealthCard(title: title, content: content);
+                    
                   },
                 );
               } else if (snapshot.hasError) {
