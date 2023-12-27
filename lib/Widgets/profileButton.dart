@@ -34,7 +34,7 @@ class ProfileButton extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.bold, 
                 color: Colors.black)),
-          Icon(Icons.arrow_forward_ios)
+          Icon(Icons.arrow_forward_ios, color: Colors.black,)
         ],
       ),
     );

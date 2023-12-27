@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:wellnow/LocalStorage/localStorage.dart';
+import 'package:wellnow/Provider/obsecureText.dart';
 import 'package:wellnow/Provider/themeProvider.dart';
 import 'package:wellnow/Widgets/profileButton.dart';
 import '../Helper/widthHeight.dart';
@@ -20,12 +21,11 @@ class _ProfilePageState extends State<ProfilePage> {
   }
   LocalStorage locaStorage = LocalStorage();
   final WidthHeight _widthHeight = WidthHeight();
-  bool isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
     final themeData = Provider.of<ThemeProvider>(context);
-
+    final switchProvider = Provider.of<ObsecureProvider>(context);
     return Scaffold(
       body: Column(
         children: [
@@ -62,8 +62,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               return Text(
                                 snapshot.data!,
                                 style: TextStyle(
+                                    fontWeight: FontWeight.bold,
                                     fontSize: _widthHeight.screenHeight(
-                                        context, 0.019)),
+                                        context, 0.017)),
                               );
                             } else if (snapshot.hasError) {
                               return Text('${snapshot.error}');
@@ -73,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           },
                         ),
                         SizedBox(
-                          height: _widthHeight.screenHeight(context, 0.009),
+                          height: _widthHeight.screenHeight(context, 0.005),
                         ),
                         FutureBuilder<String>(
                           future: locaStorage.getEmail(),
@@ -82,8 +83,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               return Text(
                                 snapshot.data!,
                                 style: TextStyle(
+                                    fontWeight: FontWeight.bold,
                                     fontSize: _widthHeight.screenHeight(
-                                        context, 0.019)),
+                                        context, 0.017)),
                               );
                             } else if (snapshot.hasError) {
                               return Text('${snapshot.error}');
@@ -103,17 +105,15 @@ class _ProfilePageState extends State<ProfilePage> {
                       'Switch to Dark Mode',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: _widthHeight.screenHeight(context, 0.02)),
+                          fontSize: _widthHeight.screenHeight(context, 0.018)),
                     ),
                     //Make a switch in flutter
                     Switch(
-                      value: isSwitched,
+                      value: switchProvider.isSwitched,
                       onChanged: (value) {
                         // Add your dark mode enabling code here
                         themeData.toggleTheme();
-                        setState(() {
-                          isSwitched = value;
-                        });
+                        switchProvider.toggleSwitch(value);
                       },
                       activeTrackColor: Colors.redAccent,
                       activeColor: Colors.red,
@@ -121,7 +121,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
                 SizedBox(
-                  height: _widthHeight.screenHeight(context, 0.0021),
+                  height: _widthHeight.screenHeight(context, 0.002),
                 ),
                 Container(
                   color: Colors.blueGrey,
