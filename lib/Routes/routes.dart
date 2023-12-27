@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wellnow/Pages/editPage.dart';
 import 'package:wellnow/Pages/loginPage.dart';
 import 'package:wellnow/Pages/resetPasswordPage.dart';
 import 'package:wellnow/Pages/signupPage.dart';
@@ -32,8 +33,19 @@ class WellRoutes {
        GoRoute(
         path: '/resetpassword',
         builder: (BuildContext context, GoRouterState state) {
-          return ResetPassword();
+          return ResetPassword(text: 'Reset Password',);
         },
+      ),
+      GoRoute(
+        path: '/changepassword',
+        builder: (BuildContext context, GoRouterState state) {
+          return ResetPassword(text: 'Change Password',);
+        },
+      ),
+      GoRoute(path: '/editprofile',
+      builder:(context, state) {
+        return EditPage();
+      },
       ),
       GoRoute(path: '/main',
       builder: (BuildContext context, GoRouterState state) {

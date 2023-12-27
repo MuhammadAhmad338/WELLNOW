@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:wellnow/Helper/widthHeight.dart';
 
-
 class HealthCard extends StatelessWidget {
   final String title;
   final String content;
   HealthCard({super.key, required this.title, required this.content});
 
- final WidthHeight _widthHeight = WidthHeight();  
+  final WidthHeight _widthHeight = WidthHeight();
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-    height: _widthHeight.screenHeight(context, 0.190), // Set your desired height here                
+      height: _widthHeight.screenHeight(
+          context, 0.190), // Set your desired height here
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),

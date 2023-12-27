@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
             title: Text("Well Now",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+              
                 ))),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                         child: Text('Search',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black)),
+                              )),
                       ),
                     ],
                   ),

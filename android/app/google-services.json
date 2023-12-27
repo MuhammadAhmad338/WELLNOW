@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "153077082538",
+    "project_id": "wellnow-3b505",
+    "storage_bucket": "wellnow-3b505.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153077082538:android:e92ef49a568ce7aeffe3d3",
+        "android_client_info": {
+          "package_name": "com.example.wellnow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKH_6FISW86HmiltVFJOQHNyG_aP79lvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

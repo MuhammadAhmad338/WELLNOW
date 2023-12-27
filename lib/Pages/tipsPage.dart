@@ -17,37 +17,39 @@ class _TipsPageState extends State<TipsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        SizedBox(height: _widthHeight.screenHeight(context, 0.02)),
-        Text("Health Tips",
-            style: TextStyle(
-                fontSize: _widthHeight.screenWidth(context, 0.043),
-                fontWeight: FontWeight.bold)),
-        SizedBox(height: _widthHeight.screenHeight(context, 0.02)),
-        Expanded(
-          child: FutureBuilder<List<TipsResponse>>(
-            future: TipsServices().fetchTips(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  reverse: false,
-                  itemBuilder: (context, index) {
-                    final title = snapshot.data![index].title;
-                    final content = snapshot.data![index].content;
-                    return HealthCard(title: title, content: content);
-                    
-                  },
-                );
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
-              return Center(child: CircularProgressIndicator());
-            },
+        body: SafeArea(
+          child: Column(
+                children: [
+          SizedBox(height: _widthHeight.screenHeight(context, 0.02)),
+          Text("Health Tips",
+              style: TextStyle(
+                  fontSize: _widthHeight.screenHeight(context, 0.025),
+                  fontWeight: FontWeight.bold)),
+          SizedBox(height: _widthHeight.screenHeight(context, 0.02)),
+          Expanded(
+            child: FutureBuilder<List<TipsResponse>>(
+              future: TipsServices().fetchTips(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    reverse: false,
+                    itemBuilder: (context, index) {
+                      final title = snapshot.data![index].title;
+                      final content = snapshot.data![index].content;
+                      return HealthCard(title: title, content: content);
+                      
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+                return Center(child: CircularProgressIndicator());
+              },
+            ),
           ),
-        ),
-      ],
-    ));
+                ],
+              ),
+        ));
   }
 }

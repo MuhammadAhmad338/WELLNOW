@@ -17,7 +17,7 @@ class ProfileButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(7),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -27,8 +27,16 @@ class ProfileButton extends StatelessWidget {
           )
         ],
       ),
-      child: Text(text,
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(text,
+              style: TextStyle(
+                fontWeight: FontWeight.bold, 
+                color: Colors.black)),
+          Icon(Icons.arrow_forward_ios)
+        ],
+      ),
     );
   }
 }

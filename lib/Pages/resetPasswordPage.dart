@@ -3,7 +3,8 @@ import 'package:wellnow/Services/userServices.dart';
 import '../Helper/widthHeight.dart';
 
 class ResetPassword extends StatelessWidget {
-  ResetPassword({super.key});
+  final String text;
+  ResetPassword({super.key, required this.text});
 
   final TextEditingController _resetEmailController = TextEditingController();
   final WidthHeight _widthHeight = WidthHeight();
@@ -19,10 +20,10 @@ class ResetPassword extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             centerTitle: true,
-            title: Text("Forgot Password",
+            title: Text(text,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: _widthHeight.screenHeight(context, 0.03)))),
+                    fontSize: _widthHeight.screenHeight(context, 0.025)))),
         body: Form(
           key: _formKey,
           child: Padding(
@@ -72,7 +73,7 @@ class ResetPassword extends StatelessWidget {
                           _resetEmailController.clear();
                         }
                       },
-                      child: const Text('RESET PASSWORD',
+                      child: Text(text,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, letterSpacing: 1)),
                       style: ButtonStyle(
