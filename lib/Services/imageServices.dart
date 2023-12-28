@@ -18,7 +18,7 @@ class ImageUploadServices {
     }
     );
     if (response.statusCode == 200) {
-         print('Iamge uploaded successfully');
+        print('Iamge uploaded successfully');
     } else {
       throw Exception('Failed to upload image');
     }
