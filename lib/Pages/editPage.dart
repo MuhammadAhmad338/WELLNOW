@@ -40,13 +40,13 @@ class EditPage extends StatelessWidget {
               height: _widthHeight.screenHeight(context, 0.05),
               decoration: BoxDecoration(
                 color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(6),
               ),
               child: Center(
                 child: Text(
                   'Change Photo',
                   style: TextStyle(
-                    fontSize: _widthHeight.screenHeight(context, 0.02),
+                    fontSize: _widthHeight.screenHeight(context, 0.018),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -55,13 +55,15 @@ class EditPage extends StatelessWidget {
           ),
           SizedBox(height: _widthHeight.screenHeight(context, 0.045)),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 25, 
+              vertical: 4),
             child: TextField(
               decoration: InputDecoration(
                   labelText: 'Username', border: OutlineInputBorder()),
             ),
           ),
-          SizedBox(height: _widthHeight.screenHeight(context, 0.045)),
+          SizedBox(height: _widthHeight.screenHeight(context, 0.035)),
           InkWell(
             onTap: () {
               print("Save Changes");
@@ -71,7 +73,7 @@ class EditPage extends StatelessWidget {
               height: _widthHeight.screenHeight(context, 0.06),
               decoration: BoxDecoration(
                 color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(50),
               ),
               child: Center(
                 child: Text(
