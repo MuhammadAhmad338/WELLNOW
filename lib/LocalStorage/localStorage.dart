@@ -14,7 +14,6 @@ Future<void> saveSignInData(bool isSignedIn) async {
 Future<String> getUsername() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getString('username') ?? "";
- 
 }
 
 Future<String> getEmail() async {

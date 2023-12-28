@@ -1,7 +1,10 @@
+import 'dart:io';
+import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wellnow/Helper/widthHeight.dart';
 import 'package:wellnow/Provider/imageProvider.dart';
+import 'package:wellnow/Services/imageServices.dart';
 
 class EditPage extends StatelessWidget {
   EditPage({super.key});
@@ -20,10 +23,27 @@ class EditPage extends StatelessWidget {
         width: double.infinity,
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           imageProvider.image != null
-              ? CircleAvatar(
-                  radius: _widthHeight.screenWidth(context, 0.13),
-                  backgroundImage: FileImage(imageProvider.image!),
-                )
+              ? Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.black, // Specify border color
+                      width: 1.0,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey
+                            .withOpacity(0.5), // Specify shadow color
+                        spreadRadius: 3, // Specify spread radius
+                        blurRadius: 3, // Specify blur radius
+                        offset: Offset(0, 3), // Specify offset
+                      ),
+                    ],
+                  ),
+                  child: CircleAvatar(
+                    radius: _widthHeight.screenWidth(context, 0.13),
+                    backgroundImage: FileImage(imageProvider.image!),
+                  ))
               : CircleAvatar(
                   radius: _widthHeight.screenWidth(context, 0.13),
                   backgroundImage: NetworkImage(
@@ -55,9 +75,7 @@ class EditPage extends StatelessWidget {
           ),
           SizedBox(height: _widthHeight.screenHeight(context, 0.045)),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 25, 
-              vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 4),
             child: TextField(
               decoration: InputDecoration(
                   labelText: 'Username', border: OutlineInputBorder()),
@@ -66,14 +84,18 @@ class EditPage extends StatelessWidget {
           SizedBox(height: _widthHeight.screenHeight(context, 0.035)),
           InkWell(
             onTap: () {
+              File? image = imageProvider.image;
+              String fileName = basename(image!.path);
+              print(fileName);
               print("Save Changes");
+              ImageUploadServices().uploadImage(fileName);
             },
             child: Container(
               width: _widthHeight.screenWidth(context, 0.66),
               height: _widthHeight.screenHeight(context, 0.06),
               decoration: BoxDecoration(
                 color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(80),
               ),
               child: Center(
                 child: Text(
