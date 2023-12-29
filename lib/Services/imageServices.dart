@@ -11,7 +11,7 @@ class ImageUploadServices {
       throw Exception('No image selected');
     }
     FirebaseStorage storage = FirebaseStorage.instance;
-     String uid = await LocalStorage().getUid();
+    String uid = await LocalStorage().getUid();
     Reference ref = storage
         .ref()
         .child('picked_images/${uid}/${selectedImage.path.split('/').last}');
@@ -19,7 +19,7 @@ class ImageUploadServices {
 
     await uploadTask.whenComplete(() => null);
     final url = await ref.getDownloadURL();
-   
+
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     await firestore.collection('users').doc(uid).update({'imageUrl': url});
   }

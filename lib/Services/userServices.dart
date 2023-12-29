@@ -34,6 +34,8 @@ class UserServices {
         LocalStorage().setUsername(user.username);
         LocalStorage().setEmail(user.email);
         LocalStorage().setUid(user.user_uid);
+        print(user.imageUrl);   
+
 
         LocalStorage().saveSignInData(true);
         GoRouter.of(context).pop();
@@ -74,7 +76,7 @@ class UserServices {
         LocalStorage().setUsername(user.username);
         LocalStorage().setEmail(user.email);
         LocalStorage().setUid(user.user_uid);
-
+        print(user.imageUrl);   
         LocalStorage().saveSignInData(true);
         GoRouter.of(context).pop();
         GoRouter.of(context).pushReplacement('/main');

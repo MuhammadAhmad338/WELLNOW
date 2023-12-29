@@ -22,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
   LocalStorage locaStorage = LocalStorage();
   final WidthHeight _widthHeight = WidthHeight();
-
+  
   @override
   Widget build(BuildContext context) {
     final themeData = Provider.of<ThemeProvider>(context);
