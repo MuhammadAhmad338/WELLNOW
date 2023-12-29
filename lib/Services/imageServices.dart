@@ -14,7 +14,7 @@ class ImageUploadServices {
     String uid = await LocalStorage().getUid();
     Reference ref = storage
         .ref()
-        .child('picked_images/${uid}/${selectedImage.path.split('/').last}');
+        .child('profile_images/${uid}/${selectedImage.path.split('/').last}');
     UploadTask uploadTask = ref.putFile(selectedImage);
 
     await uploadTask.whenComplete(() => null);
