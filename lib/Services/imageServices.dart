@@ -6,7 +6,7 @@ import 'package:wellnow/LocalStorage/localStorage.dart';
 
 class ImageUploadServices {
   // Upload image with my api upload image {
-  onUploadImage(File? selectedImage) async {
+  onUploadImage(File? selectedImage, String username) async {
     if (selectedImage == null) {
       throw Exception('No image selected');
     }
@@ -21,6 +21,6 @@ class ImageUploadServices {
     final url = await ref.getDownloadURL();
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    await firestore.collection('users').doc(uid).update({'imageUrl': url});
+    await firestore.collection('users').doc(uid).update({'imageUrl': url, 'username': username});
   }
 }

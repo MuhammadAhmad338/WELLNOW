@@ -87,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: _widthHeight.screenHeight(
-                                        context, 0.017)),
+                                        context, 0.016)),
                               );
                             } else if (snapshot.hasError) {
                               return Text('${snapshot.error}');
@@ -108,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: _widthHeight.screenHeight(
-                                        context, 0.017)),
+                                        context, 0.016)),
                               );
                             } else if (snapshot.hasError) {
                               return Text('${snapshot.error}');
