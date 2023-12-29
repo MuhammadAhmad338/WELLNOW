@@ -1,5 +1,4 @@
-import 'dart:io';
-import 'package:path/path.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wellnow/Helper/widthHeight.dart';
@@ -14,6 +13,7 @@ class EditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageProvider = Provider.of<ImagePickerProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -84,11 +84,9 @@ class EditPage extends StatelessWidget {
           SizedBox(height: _widthHeight.screenHeight(context, 0.035)),
           InkWell(
             onTap: () {
-              File? image = imageProvider.image;
-              String fileName = basename(image!.path);
-              print(fileName);
               print("Save Changes");
-              ImageUploadServices().uploadImage(fileName);
+              ImageUploadServices().onUploadImage(imageProvider.image!, 
+            );
             },
             child: Container(
               width: _widthHeight.screenWidth(context, 0.66),

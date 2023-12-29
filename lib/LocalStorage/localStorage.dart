@@ -21,6 +21,16 @@ Future<String> getEmail() async {
   return prefs.getString('email') ?? "";
 }
 
+Future<String> getUid() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString('user_uid') ?? "";
+}
+
+Future<void> setUid(String uid) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString("user_uid", uid);
+}
+
 Future<void> setEmail(String email) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString("email", email);

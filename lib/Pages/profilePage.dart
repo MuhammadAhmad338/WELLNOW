@@ -6,6 +6,7 @@ import 'package:wellnow/Provider/obsecureText.dart';
 import 'package:wellnow/Provider/themeProvider.dart';
 import 'package:wellnow/Widgets/profileButton.dart';
 import '../Helper/widthHeight.dart';
+import '../Provider/imageProvider.dart';
 import '../Services/userServices.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -26,6 +27,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final themeData = Provider.of<ThemeProvider>(context);
     final switchProvider = Provider.of<ObsecureProvider>(context);
+    final imageProvider = Provider.of<ImagePickerProvider>(context);
+
     return Scaffold(
       body: Column(
         children: [
@@ -42,7 +45,27 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Row(
                   children: [
-                    CircleAvatar(
+                   imageProvider.image != null ? Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.black, // Specify border color
+                      width: 1.0,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey
+                            .withOpacity(0.5), // Specify shadow color
+                        spreadRadius: 3, // Specify spread radius
+                        blurRadius: 3, // Specify blur radius
+                        offset: Offset(0, 3), // Specify offset
+                      ),
+                    ],
+                  ),
+                  child: CircleAvatar(
+                    radius: _widthHeight.screenWidth(context, 0.09),
+                    backgroundImage: FileImage(imageProvider.image!),
+                  )): CircleAvatar(
                       radius: 35,
                       backgroundImage: NetworkImage(
                         'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',

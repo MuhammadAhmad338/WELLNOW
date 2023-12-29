@@ -25,14 +25,15 @@ class UserServices {
           headers: {'Content-Type': 'application/json'});
 
       if (response.statusCode == 200) {
-       // Decode the response body into a JSON object.
+        // Decode the response body into a JSON object.
         Map<String, dynamic> json = jsonDecode(response.body);
 
         // Create a User object from the JSON object.
-        User user = User.fromJson(json);
-      
+        User user = User.fromMap(json);
+
         LocalStorage().setUsername(user.username);
         LocalStorage().setEmail(user.email);
+        LocalStorage().setUid(user.user_uid);
 
         LocalStorage().saveSignInData(true);
         GoRouter.of(context).pop();
@@ -69,10 +70,11 @@ class UserServices {
         Map<String, dynamic> json = jsonDecode(response.body);
 
         // Create a User object from the JSON object.
-        User user = User.fromJson(json);
+        User user = User.fromMap(json);
         LocalStorage().setUsername(user.username);
         LocalStorage().setEmail(user.email);
-        
+        LocalStorage().setUid(user.user_uid);
+
         LocalStorage().saveSignInData(true);
         GoRouter.of(context).pop();
         GoRouter.of(context).pushReplacement('/main');
@@ -96,7 +98,6 @@ class UserServices {
           Uri.parse('${APIURL}/api/users/logout'),
           headers: {'Content-Type': 'application/json'});
       if (response.statusCode == 200) {
-
         LocalStorage().saveSignInData(false);
         GoRouter.of(context).pop();
         GoRouter.of(context).pushReplacement('/register');

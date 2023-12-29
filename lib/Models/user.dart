@@ -3,23 +3,29 @@ import 'dart:convert';
 class User {
   final String username;
   final String email;
+  final String user_uid;
   final String message;
+  final String? imageUrl;
 
-  User({required this.username, required this.email, required this.message});
+  User(this.imageUrl, {required this.username, required this.user_uid, required this.email, required this.message});
 
-  Map<String, dynamic> toJson() {
+ Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'username': username,
+      'email': email,
       'message': message,
-      'email': email
+      'imageUrl': imageUrl,
     };
   }
 
-  factory User.fromJson(Map<String, dynamic> map) {
+  factory User.fromMap(Map<String, dynamic> map) {
     return User(
-        username: map['username'] as String,
-        message: map['message'] as String,
-        email: map['email'] as String);
+       map['imageUrl'] as String?,
+      username: map['username'] as String,
+      email: map['email'] as String,
+      message: map['message'] as String,
+      user_uid: map['user_uid'] as String,
+    );
   }
 }
 

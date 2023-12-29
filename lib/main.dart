@@ -1,12 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wellnow/Provider/imageProvider.dart';
 import 'package:wellnow/Provider/obsecureText.dart';
+import 'package:wellnow/firebase_options.dart';
 import 'Provider/bottomNavProvider.dart';
 import 'Provider/themeProvider.dart';
 import './Routes/routes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<BottomBarProvider>(
       create: (context) => BottomBarProvider(),
