@@ -20,13 +20,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            elevation: 0,
+      
             centerTitle: true,
             title: Text("Well Now",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-              
-                ))),
+                )),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
             child: Form(

@@ -11,7 +11,8 @@ class ImagePickerProvider with ChangeNotifier {
   Future getImage() async {
     PermissionStatus _permissionStatus = await Permission.storage.request();
     if (_permissionStatus.isGranted) {
-      final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final pickedFile =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
       final directory = await getApplicationDocumentsDirectory();
       final path = directory.path;
       print(path);
@@ -25,6 +26,4 @@ class ImagePickerProvider with ChangeNotifier {
       print('Permission not granted. Try Again with permission access');
     }
   }
-
-
 }

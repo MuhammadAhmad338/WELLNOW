@@ -21,9 +21,7 @@ class ResetPassword extends StatelessWidget {
         appBar: AppBar(
             centerTitle: true,
             title: Text(text,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: _widthHeight.screenHeight(context, 0.025)))),
+                )),
         body: Form(
           key: _formKey,
           child: Padding(

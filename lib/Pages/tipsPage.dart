@@ -17,14 +17,15 @@ class _TipsPageState extends State<TipsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("Health Tips"),
+        ),
         body: SafeArea(
           child: Column(
                 children: [
           SizedBox(height: _widthHeight.screenHeight(context, 0.02)),
-          Text("Health Tips",
-              style: TextStyle(
-                  fontSize: _widthHeight.screenHeight(context, 0.025),
-                  fontWeight: FontWeight.bold)),
+         
           SizedBox(height: _widthHeight.screenHeight(context, 0.02)),
           Expanded(
             child: FutureBuilder<List<TipsResponse>>(
