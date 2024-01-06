@@ -15,6 +15,4 @@ class TipsServices {
       throw Exception('Failed to load tips from API');
     }
   }
-
-
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wellnow/Helper/widthHeight.dart';
 import 'package:wellnow/Services/tipsServices.dart';
 import 'package:wellnow/Widgets/healthCard.dart';
 import '../Models/user.dart';
@@ -12,7 +11,6 @@ class TipsPage extends StatefulWidget {
 }
 
 class _TipsPageState extends State<TipsPage> {
-  final WidthHeight _widthHeight = WidthHeight();
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +22,7 @@ class _TipsPageState extends State<TipsPage> {
         body: SafeArea(
           child: Column(
                 children: [
-          SizedBox(height: _widthHeight.screenHeight(context, 0.02)),
-         
-          SizedBox(height: _widthHeight.screenHeight(context, 0.02)),
+  
           Expanded(
             child: FutureBuilder<List<TipsResponse>>(
               future: TipsServices().fetchTips(),

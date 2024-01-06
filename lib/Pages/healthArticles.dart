@@ -4,6 +4,8 @@ import 'package:wellnow/Models/articles.dart';
 import '../Services/healthArticleServices.dart';
 
 class HealthArticlesPage extends StatelessWidget {
+  HealthArticlesPage({Key? key}) : super(key: key);
+  
   final HealthArticleServices _articleServices = HealthArticleServices();
 
   @override
@@ -19,11 +21,9 @@ class HealthArticlesPage extends StatelessWidget {
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
-
           return ListView.builder(
             itemCount: snapshot.data?.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
@@ -31,7 +31,7 @@ class HealthArticlesPage extends StatelessWidget {
                 title: Text(snapshot.data![index].url),
                 subtitle: Html(data: snapshot.data![index].content),
                 onTap: () {
-                  // Handle tap
+                
                 },
               );
             },

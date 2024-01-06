@@ -20,7 +20,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-      
             centerTitle: true,
             title: Text("Well Now",
                 )),
@@ -94,17 +93,15 @@ class _HomePageState extends State<HomePage> {
                                         fontSize: 15)),
                               );
                             }
-
                             if (snapshot.data != null) {
                               // Add prompt message to the list
                               messages.add({"Prompt": _controller.text});
                               // Add response message to the list
                               messages.add({"Response": snapshot.data!.message});
                             }
-
                             return ListView.builder(
                               itemCount: messages.length,
-                              reverse: false,
+                              reverse: true,
                               itemBuilder: (context, index) {
                                 return Container(
                                   margin: EdgeInsets.all(8.0),

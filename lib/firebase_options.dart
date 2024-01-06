@@ -17,16 +17,19 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for android - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -49,20 +52,12 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCKH_6FISW86HmiltVFJOQHNyG_aP79lvc',
-    appId: '1:153077082538:android:e92ef49a568ce7aeffe3d3',
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAnWwFnirDcoGq1eNzXarl-4rGWBHoNyCk',
+    appId: '1:153077082538:web:52b94345613bf006ffe3d3',
     messagingSenderId: '153077082538',
     projectId: 'wellnow-3b505',
+    authDomain: 'wellnow-3b505.firebaseapp.com',
     storageBucket: 'wellnow-3b505.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAiF6adOGa0f01U3-rF50_FxymYmGa78jk',
-    appId: '1:153077082538:ios:1f488c0c165c2a6cffe3d3',
-    messagingSenderId: '153077082538',
-    projectId: 'wellnow-3b505',
-    storageBucket: 'wellnow-3b505.appspot.com',
-    iosBundleId: 'com.example.wellnow',
   );
 }

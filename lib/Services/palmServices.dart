@@ -7,13 +7,16 @@ import '../Helper/const.dart';
 class PalmServices {
   Future<PalmResponse> getData(String searchText) async {
     Map<String, String> body = {'prompt': searchText};
+    print(body);
     Response response = await client.post(Uri.parse('${APIURL}/api/palm'),
         body: jsonEncode(body), headers: {'Content-Type': 'application/json'});
+    print(response.body);
     if (response.statusCode == 200) {
       // Data fetched successfully
+      
       PalmResponse palmResponse = PalmResponse.fromMap(
           jsonDecode(response.body) as Map<String, dynamic>);
-
+     print(palmResponse);
       return palmResponse;
     } else {
       // Error occurred while fetching data

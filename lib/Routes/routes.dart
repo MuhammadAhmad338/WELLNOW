@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wellnow/Pages/editPage.dart';
 import 'package:wellnow/Pages/loginPage.dart';
+import 'package:wellnow/Pages/medicalrecord.dart';
 import 'package:wellnow/Pages/resetPasswordPage.dart';
 import 'package:wellnow/Pages/signupPage.dart';
 import 'package:wellnow/Pages/splashPage.dart';
@@ -16,6 +17,12 @@ class WellRoutes {
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
           return SplashPage();
+        },
+      ),
+      GoRoute(
+        path: '/medicalrecord',
+        builder: (BuildContext context, GoRouterState state) {
+          return MedicalRecords();
         },
       ),
       GoRoute(
