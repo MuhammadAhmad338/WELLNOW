@@ -6,6 +6,7 @@ import 'package:wellnow/Pages/medicalrecord.dart';
 import 'package:wellnow/Pages/resetPasswordPage.dart';
 import 'package:wellnow/Pages/signupPage.dart';
 import 'package:wellnow/Pages/splashPage.dart';
+import '../Pages/emergencyContactsList.dart';
 import '../Pages/mainPage.dart';
 
 class WellRoutes {
@@ -23,6 +24,12 @@ class WellRoutes {
         path: '/medicalrecord',
         builder: (BuildContext context, GoRouterState state) {
           return MedicalRecords();
+        },
+      ),
+      GoRoute(
+        path: '/emergencyContacts',
+        builder: (BuildContext context, GoRouterState state) {
+          return EmergencyContactsList();
         },
       ),
       GoRoute(

@@ -1,20 +1,21 @@
 import 'dart:convert';
-import 'package:file_picker/file_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
+import 'dart:typed_data';
 import 'package:http/http.dart';
 import 'package:wellnow/Api/api.dart';
+import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:wellnow/Helper/const.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:wellnow/LocalStorage/localStorage.dart';
 import 'package:wellnow/Models/articles.dart';
 import 'package:wellnow/Models/medicalRecord.dart';
-import 'dart:html' as html;
 
 class HealthArticleServices with ChangeNotifier {
+
   String? _fileName = "Please select a file";
   String? get fileName => _fileName;
   PlatformFile? _platformFile;
-  html.Blob? _blob;
+  Uint8List? _fileData;
 
   Future<void> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -24,22 +25,23 @@ class HealthArticleServices with ChangeNotifier {
 
     if (result != null) {
       _platformFile = result.files.first;
-      _blob = html.Blob([_platformFile!.bytes!], _platformFile!.extension);
+      _fileData = _platformFile!.bytes;
 
       _fileName = _platformFile!.name;
       notifyListeners();
+    } else {
+      // User canceled the picker
     }
   }
 
-  Future<void> uploadMedicalRecord(
-      String patientName, BuildContext context) async {
-    if (_platformFile != null && _blob != null) {
+  Future<void> uploadMedicalRecord(String patientName, BuildContext context) async {
+    if (_platformFile != null && _fileData != null) {
       try {
         // Upload the file to Firebase Storage
         String userid =  await LocalStorage().getUid();
         TaskSnapshot snapshot = await storage
             .ref('medical_records/${_platformFile!.name}')
-            .putBlob(_blob);
+            .putData(_fileData!);
         // Get the download URL of the file
         String downloadUrl = await snapshot.ref.getDownloadURL();
         // Send the metadata of the file to the api
@@ -48,6 +50,7 @@ class HealthArticleServices with ChangeNotifier {
           'userid': userid,
           'url': downloadUrl,
         };
+
         Response response = await client.post(
             Uri.parse('$APIURL/api/post_medical'),
             body: jsonEncode(body),
@@ -93,4 +96,5 @@ class HealthArticleServices with ChangeNotifier {
       throw Exception('Failed to load articles');
     }
   }
+
 }

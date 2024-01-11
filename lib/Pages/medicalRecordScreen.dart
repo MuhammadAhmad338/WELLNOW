@@ -28,7 +28,7 @@ class _MedicalRecordScreenState extends State<MedicalRecordScreen> {
           centerTitle: true,
           title: Text('Medical Records'),
         ),
-        body: FutureBuilder<List<MedicalRecord>>(
+      body: FutureBuilder<List<MedicalRecord>>(
       future: _medicalRecords,
       builder: (BuildContext context, AsyncSnapshot<List<MedicalRecord>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -42,7 +42,7 @@ class _MedicalRecordScreenState extends State<MedicalRecordScreen> {
               print(snapshot.data![index].url);
               return ListTile(
                 title: Text('Patient Name: ${snapshot.data![index].patientName}'),
-                leading: CachedNetworkImage( imageUrl:  snapshot.data![index].url),
+                leading: CachedNetworkImage(imageUrl: snapshot.data![index].url),
               );
             },
           );

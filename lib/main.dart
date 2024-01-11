@@ -1,12 +1,12 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:wellnow/Provider/emergencyContactsProvider.dart';
+import 'package:wellnow/Services/healthArticleServices.dart';
 import 'package:wellnow/Provider/imageProvider.dart';
 import 'package:wellnow/Provider/obsecureText.dart';
-import 'package:wellnow/Services/healthArticleServices.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:wellnow/firebase_options.dart';
 import 'Provider/bottomNavProvider.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 import 'Provider/themeProvider.dart';
 import './Routes/routes.dart';
 
@@ -15,17 +15,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-  final AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('app_icon');
-
-  final InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-  );
-  print(initializationSettingsAndroid.defaultIcon);
-  print(initializationSettings);
-  flutterLocalNotificationsPlugin.initialize(initializationSettings);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<BottomBarProvider>(
       create: (context) => BottomBarProvider(),
@@ -41,6 +30,9 @@ void main() async {
     ),
     ChangeNotifierProvider<HealthArticleServices>(
       create: (context) => HealthArticleServices(),
+    ),
+    ChangeNotifierProvider<EmergencyContactsProvider>(
+      create: (context) => EmergencyContactsProvider(),
     ),
   ], child: const MyApp()));
 }

@@ -42,9 +42,10 @@ class MedicalRecords extends StatelessWidget {
                    ),),
                  ),
             SizedBox(height: 20.0),
-          ElevatedButton(
+            ElevatedButton(
                       onPressed: () {
-                       _healthServicesProvider.uploadMedicalRecord(_nameController.text, context);
+                        _healthServicesProvider.uploadMedicalRecord(
+                          _nameController.text, context);
                         _nameController.clear();      
                       },
                       child: Text("Upload Record",

@@ -13,31 +13,28 @@ class LocationProvider with ChangeNotifier {
   void getNearbyPharmacies() async {
     PermissionStatus permission = await Permission.locationWhenInUse.request();
 
-  if (permission.isGranted) {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    print(" Latitude ${position.latitude}");
-    print(" Longitude ${position.longitude}");
+    if (permission.isGranted) {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      print(" Latitude ${position.latitude}");
+      print(" Longitude ${position.longitude}");
 
-    PlacesSearchResponse response = await _places!.searchNearbyWithRadius(
-      Location(lat: position.latitude, lng: position.longitude),
-      1500,
-      type: "pharmacy",
-    );
+      PlacesSearchResponse response = await _places!.searchNearbyWithRadius(
+        Location(lat: position.latitude, lng: position.longitude),
+        1500,
+        type: "pharmacy",
+      );
 
-    for (var result in response.results) {
-      print(result.name);
+      for (var result in response.results) {
+        print(result.name);
+      }
+      // Handle the response
+    } else {
+      // Handle the case where the user did not grant location permissions
     }
-    // Handle the response
-  } else {
-    // Handle the case where the user did not grant location permissions
-  }
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-print(position.latitude);
-print(position.longitude);
-    
+    print(position.latitude);
+    print(position.longitude);
   }
-
-  
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:wellnow/LocalStorage/localStorage.dart';
@@ -9,7 +8,6 @@ import 'package:wellnow/Widgets/profileButton.dart';
 import '../Helper/widthHeight.dart';
 import '../Provider/imageProvider.dart';
 import '../Services/userServices.dart';
-import 'package:timezone/timezone.dart' as tz;
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({super.key});
@@ -25,59 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   LocalStorage locaStorage = LocalStorage();
   final WidthHeight _widthHeight = WidthHeight();
-  bool _enabled = false;
-  int _interval = 2;
- 
- void scheduleNotification(int id, String title, String body, DateTime scheduledDate) async {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();  
-
-  var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-    'channel id', 'channel name',
-    importance: Importance.max,
-    priority: Priority.high,
-    showWhen: false,
-  );
-  var platformChannelSpecifics = NotificationDetails(
-    android: androidPlatformChannelSpecifics,
-  );
-  await flutterLocalNotificationsPlugin.zonedSchedule(
-    id,
-    title,
-    body,
-    tz.TZDateTime.from(scheduledDate, tz.local),
-    platformChannelSpecifics,
-    androidAllowWhileIdle: true,
-    uiLocalNotificationDateInterpretation:
-        UILocalNotificationDateInterpretation.absoluteTime,
-  );
-}
-
-  void scheduleNotifications() {
-    // Cancel all existing notifications
-    cancelNotifications();
-
-    // Schedule a notification every _interval hours
-    for (int i = 1; i <= 24 ~/ _interval; i++) {
-      scheduleNotification(
-        i,
-        'Drink Water',
-        'It\'s time to drink some water!',
-        DateTime.now().add(Duration(hours: i * _interval)),
-      );
-    }
-  }
-
-  void cancelNotifications() {
-    // Cancel all notifications
-//    import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-    // Create an instance of FlutterLocalNotificationsPlugin
-    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
-    flutterLocalNotificationsPlugin.cancelAll();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         switchProvider.toggleSwitch(value);
                       },
                       activeTrackColor: Colors.redAccent,
-                      activeColor: Colors.red,
+                      activeColor: Colors.white,
                     ),
                   ],
                 ),
@@ -235,44 +181,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(
                   height: _widthHeight.screenHeight(context, 0.015),
                 ),
-                Column(
-                  children: [
-                    SwitchListTile(
-                      title: Text('Enable Water Reminder'),
-                      value: _enabled,
-                      onChanged: (bool value) {
-                        setState(() {
-                          _enabled = value;
-                        });
-                        if (value) {
-                           scheduleNotifications();
-                        } else {
-                           cancelNotifications();
-                        }
-                      },
-                    ),
-                    DropdownButtonFormField<int>(
-                      decoration: InputDecoration(
-                        labelText: 'Interval (hours)',
-                      ),
-                      value: _interval,
-                      items: <int>[1, 2, 3, 4].map((int value) {
-                        return DropdownMenuItem<int>(
-                          value: value,
-                          child: Text('$value hours'),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          _interval = value!;
-                        });
-                        if (_enabled) {
-                          scheduleNotifications();
-                        }
-                      },
-                    ),
-                  ],
-                ),
+                GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).push('/emergencyContacts');
+                    },
+                    child: ProfileButton(text: "Emergency Contacts")),
                 //    Elevated Button
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
