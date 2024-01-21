@@ -36,6 +36,7 @@ Future<void> setEmail(String email) async {
   await prefs.setString("email", email);
 }
 
+
 Future<void> setUsername(String username) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString('username', username);
@@ -50,4 +51,7 @@ Future<List<String>> getSearchHistory() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getStringList('messagesList') ?? [];
 }
+
+
+
 }

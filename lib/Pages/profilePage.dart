@@ -22,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
     await UserServices().signOut(context);
   }
 
-  LocalStorage locaStorage = LocalStorage();
+  LocalStorage _localStorage = LocalStorage();
   final WidthHeight _widthHeight = WidthHeight();
 
   @override
@@ -87,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           FutureBuilder<String>(
-                            future: locaStorage.getUsername(),
+                            future: _localStorage.getUsername(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return Text(
@@ -108,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             height: _widthHeight.screenHeight(context, 0.005),
                           ),
                           FutureBuilder<String>(
-                            future: locaStorage.getEmail(),
+                            future: _localStorage.getEmail(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return Text(
@@ -147,8 +147,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           themeData.toggleTheme();
                           switchProvider.toggleSwitch(value);
                         },
-                        activeTrackColor: Colors.redAccent,
-                        activeColor: Colors.white,
                       ),
                     ],
                   ),
@@ -191,41 +189,70 @@ class _ProfilePageState extends State<ProfilePage> {
                         GoRouter.of(context).push('/emergencyContacts');
                       },
                       child: ProfileButton(text: "Emergency Contacts")),
-                  //   v Elevated Button
-                  SizedBox(
-                    height: _widthHeight.screenHeight(context, 0.1),
-                  ),
+                  //
+                  SizedBox(height: _widthHeight.screenHeight(context, 0.015)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Enable Water Reminder",
+                          style: TextStyle(
+                              fontSize:
+                                  _widthHeight.screenHeight(context, 0.02))),
+                      Switch(
+                        value: notificationServicesProvider.notificationState,
+                        onChanged: (bool value) {
+                          notificationServicesProvider
+                              .changeNotificationState(value);
 
-                  ListTile(
-                    title: Text('Enable Water Reminder'),
-                    trailing: Switch(
-                      value: notificationServicesProvider.notificationState,
-                      onChanged: (bool value) {
-                        notificationServicesProvider
-                            .changeNotificationState(value);
-                        if (value) {
-                           notificationServicesProvider.scheduleWaterReminder();
-                        }
+                          if (value) {
+                            notificationServicesProvider
+                                .scheduleWaterReminder();
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: _widthHeight.screenHeight(context, 0.004),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: _widthHeight.screenWidth(context, 0.006)),
+                    child: DropdownButton<int>(
+                      isExpanded: true,
+                      value: notificationServicesProvider.selectedTime,
+                      onChanged: (value) {
+                        notificationServicesProvider.updateSelectedTime(
+                            value!, context);
                       },
+                      style: TextStyle(
+                        fontSize: _widthHeight.screenHeight(context,
+                            0.02), // Ensure readability on smaller screens
+                        //color: Theme.of(context).textTheme, // Match theme for consistency
+                      ),
+                      underline: Container(
+                        height: 1,
+                        color: Theme.of(context)
+                            .dividerColor, // Use theme for a subtle divider
+                      ),
+                      items: [
+                        for (int i = 1; i <= 5; i++)
+                          DropdownMenuItem<int>(
+                            value: i,
+                            child: Text(
+                              '$i hours',
+                              style: TextStyle(
+                                color: themeData.isDarkMode
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: _widthHeight.screenHeight(context,
+                                    0.02), // Maintain consistent font size
+                              ),
+                            ),
+                          )
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  DropdownButton<int>(
-                    value: notificationServicesProvider.selectedTime,
-                    onChanged: (value) {
-                     notificationServicesProvider.updateSelectedTime(value!, context);
-                    },
-                    items: [
-                      for (int i = 1; i <= 5; i++)
-                        DropdownMenuItem<int>(
-                          value: i,
-                          child: Text('$i hours'),
-                        )
-                    ]
-                  ),
-
                   SizedBox(
                     height: _widthHeight.screenHeight(context, 0.015),
                   ),

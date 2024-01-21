@@ -56,13 +56,16 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: themeData
             ? ThemeData(
-                colorScheme: ColorScheme.dark().copyWith(primary: Colors.white),
+                primarySwatch: Colors.blueGrey,
+                brightness: Brightness.dark,
+                primaryColor: Colors.blueAccent,
                 fontFamily: 'Comfortaa',
-                useMaterial3: true)
+              )
             : ThemeData(
+                primarySwatch: Colors.teal,
+                brightness: Brightness.light,
+                primaryColor: Colors.tealAccent,
                 fontFamily: 'Comfortaa',
-                useMaterial3: true,
-                colorScheme: ColorScheme.light().copyWith(primary: Colors.red),
               ));
   }
 }

@@ -1,12 +1,26 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationServicesProvider with ChangeNotifier {
   bool _notificationState = false;
   int _selectedTime = 1;
   bool get notificationState => _notificationState;
   int get selectedTime => _selectedTime;
+
+  //Constructor
+  NotificationServicesProvider() {
+    loadNotificationState();
+  }
+
+  //Load the notification state
+  void loadNotificationState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _notificationState = prefs.getBool('switchValue') ?? false;
+    notifyListeners();
+  }
+
 
   // Here we are initializing the notificaitions
   void initializeNotifications() {
@@ -40,7 +54,6 @@ class NotificationServicesProvider with ChangeNotifier {
           body: 'Stay hydrated, take a sip now!',
         ),
       );
-      // print(_selectedTime);
       // Schedule the notification to show at regular intervals
       AwesomeNotifications().createNotification(
         content: NotificationContent(
@@ -71,8 +84,10 @@ class NotificationServicesProvider with ChangeNotifier {
   }
   }
 
-  void changeNotificationState(bool newState) {
-    _notificationState = newState;
+  void changeNotificationState(bool value) async {
+    _notificationState = value;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('switchValue', value);
     notifyListeners();
 
     if (!_notificationState) {
