@@ -1,9 +1,11 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../LocalStorage/localStorage.dart';
+import 'package:wellnow/Helper/helperfunctions.dart';
+import 'package:wellnow/Helper/widthHeight.dart';
 import '../Models/emergencyContacts.dart';
+import '../LocalStorage/localStorage.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../Provider/emergencyContactsProvider.dart';
 
 class EmergencyContactsList extends StatefulWidget {
@@ -13,8 +15,10 @@ class EmergencyContactsList extends StatefulWidget {
 
 class _EmergencyContactsListState extends State<EmergencyContactsList> {
   final _formKey = GlobalKey<FormState>();
+  WidthHeight _widthHeight = WidthHeight();
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
+  
   LocalStorage _localStorage = LocalStorage();
   String _userid = "";
 
@@ -40,7 +44,7 @@ class _EmergencyContactsListState extends State<EmergencyContactsList> {
   @override
   Widget build(BuildContext context) {
     final emergencyContacts = Provider.of<EmergencyContactsProvider>(context);
-    print(emergencyContacts.emergencyContacts.length);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -49,51 +53,14 @@ class _EmergencyContactsListState extends State<EmergencyContactsList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Show the bottom sheet when FloatingActionButton is pressed
-          showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
-            builder: (BuildContext context) {
-              return Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: Container(
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      TextField(
-                        controller: _nameController,
-                        decoration: InputDecoration(labelText: 'Enter Name'),
-                      ),
-                      TextField(
-                        controller: _phoneController,
-                        decoration: InputDecoration(labelText: 'Enter Phone'),
-                      ),
-                      // Add more fields as needed
-                      SizedBox(height: 16.0),
-                      ElevatedButton(
-                        onPressed: () {
-                          final name = _nameController.text;
-                          final phoneNumber = _phoneController.text;
-                          emergencyContacts.addContact(EmergencyContacts(
-                            name: name,
-                            phone: phoneNumber,
-                            userid: _userid,
-                          ));
-                          // Close the modal or clear the form
-                          _nameController.clear();
-                          _phoneController.clear();
-
-                          Navigator.pop(context);
-                        },
-                        child: Text('Save Contact'),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
+          showContactModalBottomSheet(
+              context: context,
+              nameController: _nameController,
+              phoneController: _phoneController,
+              userid: _userid,
+              formKey: _formKey,
+              widthHeight: _widthHeight,
+              emergencyContacts: emergencyContacts);
         },
         child: Icon(Icons.add),
       ),
@@ -110,13 +77,10 @@ class _EmergencyContactsListState extends State<EmergencyContactsList> {
 }
 
 class ContactListItem extends StatefulWidget {
-
   final EmergencyContacts contact;
   final int index;
 
-  ContactListItem({Key? key,
-    required this.contact,
-    required this.index})
+  ContactListItem({Key? key, required this.contact, required this.index})
       : super(key: key);
 
   @override
@@ -126,6 +90,7 @@ class ContactListItem extends StatefulWidget {
 class _ContactListItemState extends State<ContactListItem> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _phoneNumberController = TextEditingController();
+  
 
   void launchDialer(String phoneNumber) async {
     print(phoneNumber);
@@ -156,59 +121,25 @@ class _ContactListItemState extends State<ContactListItem> {
         children: [
           IconButton(
             onPressed: () {
-              //Raise the bottom sheet and also pass  the contact data to
-              //the bottom sheet
-              showModalBottomSheet(
-                isScrollControlled: true,
-                context: context,
-                builder: (BuildContext context) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: Container(
-                      padding: EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          TextField(
-                            controller: _usernameController,
-                            decoration: InputDecoration(labelText: 'Enter Name'),
-                          ),
-                          TextField(
-                            controller: _phoneNumberController,
-                            decoration: InputDecoration(labelText: 'Enter Phone'),
-                          ),
-                          // Add more fields as needed
-                          SizedBox(height: 16.0),
-                          ElevatedButton(
-                            onPressed: () {
-                              final name = _usernameController.text;
-                              final phoneNumber = _phoneNumberController.text;
-                              emergencyContacts.editContact(
-                                  EmergencyContacts(
-                                    name: name,
-                                    phone: phoneNumber,
-                                    userid: widget.contact.userid,
-                                  ),
-                                  widget.index);
-                              // Close the modal or clear the form
-                              Navigator.pop(context);
-                            },
-                            child: Text('Save Contact'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
+              //Raise the bottom sheet and also pass the contact data to the bottom sheet
+              showContactModalBottomSheet(
+                  context: context,
+                  nameController: _usernameController,
+                  phoneController: _phoneNumberController,
+                  userid: widget.contact.userid,
+                  formKey: GlobalKey<FormState>(),
+                  widthHeight: WidthHeight(),
+                  emergencyContacts: emergencyContacts,
+                );
+                        
             },
             icon: Icon(Icons.edit),
           ),
           IconButton(
             onPressed: () {
               final emergencyContacts = Provider.of<EmergencyContactsProvider>(
-                  context, listen: false);
+                  context,
+                  listen: false);
               emergencyContacts.removeContact(widget.contact);
             },
             icon: Icon(Icons.delete),

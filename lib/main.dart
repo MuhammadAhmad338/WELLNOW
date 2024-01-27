@@ -58,13 +58,21 @@ class MyApp extends StatelessWidget {
             ? ThemeData(
                 primarySwatch: Colors.blueGrey,
                 brightness: Brightness.dark,
-                primaryColor: Colors.blueAccent,
+                primaryColor: Color(0xff263238),
+                colorScheme: ColorScheme.dark().copyWith(
+                  primary: Color(0xff263238),
+                  secondary: Colors.purple[600],
+                ),
                 fontFamily: 'Comfortaa',
               )
             : ThemeData(
-                primarySwatch: Colors.teal,
+                primarySwatch: Colors.blue,
                 brightness: Brightness.light,
-                primaryColor: Colors.tealAccent,
+                primaryColor: Colors.lightBlue[700],
+                colorScheme: ColorScheme.light().copyWith(
+                  primary: Colors.lightBlue[700],
+                  secondary: Colors.teal[700],
+                ),
                 fontFamily: 'Comfortaa',
               ));
   }

@@ -6,15 +6,13 @@ import 'package:wellnow/LocalStorage/localStorage.dart';
 
 class ImageUploadServices {
   // Upload image with my api upload image {
-  onUploadImage(File? selectedImage, String username) async {
+  void onUploadImage(File? selectedImage, String username) async {
     if (selectedImage == null) {
       throw Exception('No image selected');
     }
     FirebaseStorage storage = FirebaseStorage.instance;
     String uid = await LocalStorage().getUid();
-    Reference ref = storage
-        .ref()
-        .child('profile_images/${uid}/${selectedImage.path.split('/').last}');
+    Reference ref = storage.ref().child('profile_images/${uid}/${selectedImage.path.split('/').last}');
     UploadTask uploadTask = ref.putFile(selectedImage);
 
     await uploadTask.whenComplete(() => null);
